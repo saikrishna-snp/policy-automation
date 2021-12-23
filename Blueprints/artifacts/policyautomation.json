@@ -3,7 +3,7 @@
     "properties": {
         "displayName": "Policy Automation",
         "dependsOn": [],
-        "policyDefinitionId": "/subscriptions/10f98c0c-314b-4159-81dd-d2000b552ec6/providers/Microsoft.Authorization/policySetDefinitions/PolicyAutomation",
+        "policyDefinitionId": "/subscriptions/4d6a8172-06bd-487f-b993-bbe6a2fcc50d/providers/Microsoft.Authorization/policySetDefinitions/MyFirstPolicyInitative",
         "parameters": {}
     }
 }
