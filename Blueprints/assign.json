@@ -4,7 +4,7 @@
 	},
 	"location": "eastus",
 	"properties": {
-	   "description": "Policy Automation",
+	   "description": "My First Policy Initiative",
 	   "targetScope": "subscription",
            "resourceGroups": {},
 	   "parameters": {}
