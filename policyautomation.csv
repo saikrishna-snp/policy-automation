@@ -1,1 +1,5 @@
 name,displayname,policy
+A maximum of 3 owners should be designated for your subscription,A maximum of 3 owners should be designated for your subscription,A maximum of 3 owners should be designated for your subscription.json
+Public network access should be disabled for Container registries,Public network access should be disabled for Container registries,acr-public-access-disable.json
+Azure Kubernetes Service Private Clusters should be enabled,Azure Kubernetes Service Private Clusters should be enabled,aks-private-cluster-enable.json
+Azure Backup should be enabled for Virtual Machines,Azure Backup should be enabled for Virtual Machines,vm-backup-enable.json
