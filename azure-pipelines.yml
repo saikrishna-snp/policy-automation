@@ -1,1 +1,101 @@
-azure pipelines.yml
+# Starter pipeline
+trigger:
+  - none
+
+pool:
+  vmImage: windows-2019
+
+stages:
+  - stage: Custom_Policies
+    displayName: Create Custom Policies
+    jobs:
+      - job: Create_Custom_Policies
+        displayName: Create Custom Policies
+        pool:
+          vmImage: 'windows-2019'
+        steps:
+          - task: AzurePowerShell@5
+            displayName: 'Create Custom Policies'
+            inputs:
+              azureSubscription: 'AzureDevOpsSP'
+              ScriptType: 'InlineScript'
+              Inline: |
+                $Credentials = Import-Csv -Path .\policyautomation.csv
+                ForEach ($Creds in $Credentials)
+                {
+                   $Name        = $Creds.name
+                   $DisplayName = $Creds.displayname
+                   $Policy      = $Creds.policy
+
+                   New-AzPolicyDefinition -Name $Name -DisplayName $DisplayName -Policy Definitions/$Policy
+                }
+              FailOnStandardError: true
+              azurePowerShellVersion: 'LatestVersion'
+
+#          - task: AzurePowerShell@5
+#            inputs:
+#              azureSubscription: 'AzureDevOpsSP'
+#              ScriptType: 'InlineScript'
+#              Inline: 'Start-Sleep -Seconds 10'
+#              azurePowerShellVersion: 'LatestVersion'
+#
+#  - stage: Policy_Initiative
+#    displayName: Create Policy Initiative
+#    dependsOn: Custom_Policies
+#    jobs:
+#      - job: Create_Policy_Initiative
+#        displayName: Create Policy Initiative
+#        pool:
+#          vmImage: 'windows-2019'
+#        steps:
+#          - task: AzurePowerShell@5
+#            displayName: 'Create Policy Initiative'
+#            inputs:
+#              azureSubscription: 'AzureDevOpsSP'
+#              ScriptType: 'InlineScript'
+#              Inline: 'New-AzPolicySetDefinition -Name PolicyAutomation -PolicyDefinition Initiative/policyautomation.json'
+#              azurePowerShellVersion: 'LatestVersion'
+#
+#  - stage: Create_Blueprints
+#    displayName: Create Blueprints
+#    dependsOn: Policy_Initiative
+#    jobs:
+#      - job: Create_Blueprints
+#        displayName: Create Blueprints
+#        pool:
+#          vmImage: 'windows-2019'
+#        steps:
+#          - task: CreateBlueprint@1
+#            inputs:
+#              azureSubscription: 'AzureDevOpsSP'
+#              BlueprintName: 'PolicyAutomation'
+#              BlueprintPath: 'Blueprints'
+#              IncludeSubFolders: true
+#              AlternateLocation: false
+#              PublishBlueprint: true
+#
+#          - upload: Blueprints
+#            artifact: Blueprints
+#
+#  - stage: Assign_Blueprints
+#    displayName: Assign Blueprints
+#    dependsOn: Create_Blueprints
+#    jobs:
+#      - deployment: Assign_Blueprints
+#        displayName: Assign Blueprints
+#        pool:
+#          vmImage: 'windows-2019'
+#        environment: 'CustomNIST'
+#        strategy:
+#          runOnce:
+#            deploy:
+#              steps:
+#                - task: AssignBlueprint@1
+#                  inputs:
+#                    azureSubscription: 'AzureDevOpsSP'
+#                    AssignmentName: 'PolicyAutomation'
+#                    BlueprintName: 'PolicyAutomation'
+#                    ParametersFile: '$(Pipeline.Workspace)/Blueprints/assign.json'
+#                    AlternateSubscription: false
+#                    Wait: true
+#                    StopOnFailure: true
