@@ -1,0 +1,12 @@
+{
+	"identity": {
+	   "type": "SystemAssigned"
+	},
+	"location": "eastus",
+	"properties": {
+	   "description": "Policy Automation",
+	   "targetScope": "subscription",
+           "resourceGroups": {},
+	   "parameters": {}
+	}
+}

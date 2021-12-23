@@ -1,1 +1,1 @@
-# policy-automation
+# policyautomation

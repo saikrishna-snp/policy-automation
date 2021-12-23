@@ -1,0 +1,9 @@
+{
+    "kind": "policyAssignment",
+    "properties": {
+        "displayName": "Policy Automation",
+        "dependsOn": [],
+        "policyDefinitionId": "/subscriptions/10f98c0c-314b-4159-81dd-d2000b552ec6/providers/Microsoft.Authorization/policySetDefinitions/PolicyAutomation",
+        "parameters": {}
+    }
+}
